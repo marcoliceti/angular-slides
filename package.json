@@ -1,0 +1,17 @@
+{
+  "name": "angular-slides",
+  "version": "0.0.0",
+  "description": "",
+  "main": "module.js",
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "angular-mocks": "^1.5.5",
+    "grunt": "^1.0.1",
+    "grunt-karma": "^0.12.2",
+    "jasmine-core": "^2.4.1",
+    "karma": "^0.13.22",
+    "karma-chrome-launcher": "^0.2.3",
+    "karma-jasmine": "^0.3.8"
+  }
+}
