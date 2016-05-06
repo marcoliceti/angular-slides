@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('msl.slides').directive('mslSlides', ['mslSlidesLocation',
-  function (mslSlidesLocation) {
+  'mslSlidesScroller', function (mslSlidesLocation, mslSlidesScroller) {
   return {
     restrict: 'E',
     scope: {}, // isolated
@@ -25,20 +25,19 @@ angular.module('msl.slides').directive('mslSlides', ['mslSlidesLocation',
       // Slide change handling
 
       scope.changeSlide = function (new_slide_number, old_slide_number) {
-        if (old_slide_number && new_slide_number !== old_slide_number) {
-          // TODO
+        if (new_slide_number !== old_slide_number) {
+          mslSlidesScroller.scroll(new_slide_number);
         }
       };
 
-      // Watchers
+      // Watchers & listeners
 
-      scope.$watch(function () {
-        return mslSlidesLocation.getSlideNumber();
-      }, function (number) {
-        if (scope.validSlideNumber(number)) {
-          scope.slide_number = number;
+      scope.$on('$locationChangeSuccess', function () {
+        var slide_number = mslSlidesLocation.getSlideNumber();
+        if (scope.validSlideNumber(slide_number)) {
+          scope.slide_number = slide_number;
         }
-      });
+      })
 
       scope.$watch('slide_number', function (new_slide_number,
         old_slide_number) {

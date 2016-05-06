@@ -1,0 +1,19 @@
+body {
+  margin: 0;
+}
+
+#slide1, #slide2, #slide3 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#slide1, #slide3 {
+  background: rgb(255, 127, 127);
+  color: rgb(127, 0, 127);
+}
+
+#slide2 {
+  background: rgb(127, 0, 127);
+  color: rgb(255, 127, 127);
+}

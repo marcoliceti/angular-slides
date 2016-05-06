@@ -1,18 +1,20 @@
 'use strict';
 
 describe('Directive msl-slides', function () {
-  var $compile, $rootScope, mslSlidesLocation;
+  var $compile, $rootScope, mslSlidesLocation, mslSlidesScroller;
 
   beforeEach(module('msl.slides'));
 
   beforeEach(inject(function (
     _$compile_,
     _$rootScope_,
-    _mslSlidesLocation_
+    _mslSlidesLocation_,
+    _mslSlidesScroller_
   ) {
     $compile = _$compile_;
     $rootScope = _$rootScope_;
     mslSlidesLocation = _mslSlidesLocation_;
+    mslSlidesScroller = _mslSlidesScroller_;
   }));
 
   it('makes every child element fullscreen', function () {
@@ -50,7 +52,7 @@ describe('Directive msl-slides', function () {
     expect(scope.slides.eq(2)).not.toEqual(element.children().eq(0));
   });
 
-  it('watches the window location for changes in the slide number',
+  it('keeps track of the window location for changes in the slide number',
     function () {
     var element = $compile(
       '<msl-slides> \
@@ -62,12 +64,15 @@ describe('Directive msl-slides', function () {
     $rootScope.$digest();
     var scope = element.isolateScope();
     spyOn(mslSlidesLocation, 'getSlideNumber').and.returnValue(0);
+    $rootScope.$broadcast('$locationChangeSuccess');
     scope.$apply();
     expect(scope.slide_number).toEqual(0);
     mslSlidesLocation.getSlideNumber.and.returnValue(1);
+    $rootScope.$broadcast('$locationChangeSuccess');
     scope.$apply();
     expect(scope.slide_number).toEqual(1);
     mslSlidesLocation.getSlideNumber.and.returnValue(2);
+    $rootScope.$broadcast('$locationChangeSuccess');
     scope.$apply();
     expect(scope.slide_number).toEqual(2);
   });
@@ -84,32 +89,37 @@ describe('Directive msl-slides', function () {
     var scope = element.isolateScope();
     spyOn(scope, 'validSlideNumber').and.callThrough();
     spyOn(mslSlidesLocation, 'getSlideNumber').and.returnValue(0);
-    scope.validSlideNumber.calls.reset();
+    $rootScope.$broadcast('$locationChangeSuccess');
     scope.$apply();
     expect(scope.validSlideNumber).toHaveBeenCalledWith(0);
     expect(scope.slide_number).toEqual(0);
-    mslSlidesLocation.getSlideNumber.and.returnValue(1);
     scope.validSlideNumber.calls.reset();
+    mslSlidesLocation.getSlideNumber.and.returnValue(1);
+    $rootScope.$broadcast('$locationChangeSuccess');
     scope.$apply();
     expect(scope.validSlideNumber).toHaveBeenCalledWith(1);
     expect(scope.slide_number).toEqual(1);
-    mslSlidesLocation.getSlideNumber.and.returnValue(2);
     scope.validSlideNumber.calls.reset();
+    mslSlidesLocation.getSlideNumber.and.returnValue(2);
+    $rootScope.$broadcast('$locationChangeSuccess');
     scope.$apply();
     expect(scope.validSlideNumber).toHaveBeenCalledWith(2);
     expect(scope.slide_number).toEqual(2);
-    mslSlidesLocation.getSlideNumber.and.returnValue(3);
     scope.validSlideNumber.calls.reset();
+    mslSlidesLocation.getSlideNumber.and.returnValue(3);
+    $rootScope.$broadcast('$locationChangeSuccess');
     scope.$apply();
     expect(scope.validSlideNumber).toHaveBeenCalledWith(3);
     expect(scope.slide_number).toEqual(2);
-    mslSlidesLocation.getSlideNumber.and.returnValue(-1);
     scope.validSlideNumber.calls.reset();
+    mslSlidesLocation.getSlideNumber.and.returnValue(-1);
+    $rootScope.$broadcast('$locationChangeSuccess');
     scope.$apply();
     expect(scope.validSlideNumber).toHaveBeenCalledWith(-1);
     expect(scope.slide_number).toEqual(2);
-    mslSlidesLocation.getSlideNumber.and.returnValue(NaN);
     scope.validSlideNumber.calls.reset();
+    mslSlidesLocation.getSlideNumber.and.returnValue(NaN);
+    $rootScope.$broadcast('$locationChangeSuccess');
     scope.$apply();
     expect(scope.validSlideNumber).toHaveBeenCalledWith(NaN);
     expect(scope.slide_number).toEqual(2);
@@ -136,13 +146,13 @@ describe('Directive msl-slides', function () {
 
   it('when the slide changes, invokes the related handler',
     function () {
-      var element = $compile(
-        '<msl-slides> \
-          <div id="1"></div> \
-          <div id="2"></div> \
-          <div id="3"></div> \
-        </msl-slides>'
-      )($rootScope);
+    var element = $compile(
+      '<msl-slides> \
+        <div id="1"></div> \
+        <div id="2"></div> \
+        <div id="3"></div> \
+      </msl-slides>'
+    )($rootScope);
     $rootScope.$digest();
     var scope = element.isolateScope();
     spyOn(scope, 'changeSlide');
@@ -157,5 +167,21 @@ describe('Directive msl-slides', function () {
     scope.slide_number = 2;
     scope.$apply();
     expect(scope.changeSlide).toHaveBeenCalledWith(2, 1);
+  });
+
+  it('relies on a scroller service',
+    function () {
+    var element = $compile(
+      '<msl-slides> \
+        <div id="1"></div> \
+        <div id="2"></div> \
+        <div id="3"></div> \
+      </msl-slides>'
+    )($rootScope);
+    $rootScope.$digest();
+    var scope = element.isolateScope();
+    spyOn(mslSlidesScroller, 'scroll');
+    scope.changeSlide(0);
+    expect(mslSlidesScroller.scroll).toHaveBeenCalledWith(0);
   });
 });

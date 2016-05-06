@@ -9,6 +9,7 @@ module.exports = function (config) {
       'node_modules/angular-mocks/angular-mocks.js',
       'src/module.js',
       'src/service/location.js',
+      'src/service/scroller.js',
       'src/directive/slides.js',
       'test/directive/slides.js'
     ],
