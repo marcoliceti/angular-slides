@@ -8,8 +8,9 @@ module.exports = function (config) {
       'bower_components/angular/angular.js',
       'node_modules/angular-mocks/angular-mocks.js',
       'src/module.js',
-      'src/slides.js',
-      'test/slides.js'
+      'src/service/location.js',
+      'src/directive/slides.js',
+      'test/directive/slides.js'
     ],
     reporters: ['progress'],
     port: 9876,
