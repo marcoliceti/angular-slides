@@ -22,26 +22,32 @@ angular.module('msl.slides').directive('mslSlides', ['mslSlidesLocation',
         return n >= 0 && n < scope.slides.length;
       };
 
-      // Slide change handling
+      // Slide change logic
 
       scope.changeSlide = function (new_slide_number, old_slide_number) {
-        if (new_slide_number !== old_slide_number) {
-          mslSlidesScroller.scroll(new_slide_number);
-        }
+        mslSlidesScroller.scroll(new_slide_number);
       };
 
-      // Watchers & listeners
+      // Event handling
 
       scope.$on('$locationChangeSuccess', function () {
         var slide_number = mslSlidesLocation.getSlideNumber();
-        if (scope.validSlideNumber(slide_number)) {
-          scope.slide_number = slide_number;
+        scope.$emit('msl_slides_proposed_slide_change', slide_number);
+      });
+
+      scope.$on('msl_slides_proposed_slide_change', function (event, number) {
+        if (scope.validSlideNumber(number)) {
+          scope.slide_number = number;
         }
-      })
+      });
 
       scope.$watch('slide_number', function (new_slide_number,
         old_slide_number) {
-        scope.changeSlide(new_slide_number, old_slide_number);
+        var new_slide_number = new_slide_number || 0;
+        var old_slide_number = old_slide_number || 0;
+        if (new_slide_number !== old_slide_number) {
+          scope.changeSlide(old_slide_number, new_slide_number);
+        }
       });
     }
   };
