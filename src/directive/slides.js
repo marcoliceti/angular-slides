@@ -1,7 +1,9 @@
 'use strict';
 
 angular.module('msl.slides').directive('mslSlides', ['mslSlidesLocation',
-  'mslSlidesScroller', function (mslSlidesLocation, mslSlidesScroller) {
+  'mslSlidesScroller', 'mslSlidesScrollDetector', 'mslSlidesViewport',
+  function (mslSlidesLocation, mslSlidesScroller, mslSlidesScrollDetector,
+  mslSlidesViewport) {
   return {
     restrict: 'E',
     scope: {}, // isolated
@@ -24,21 +26,33 @@ angular.module('msl.slides').directive('mslSlides', ['mslSlidesLocation',
 
       // Slide change logic
 
-      scope.changeSlide = function (new_slide_number, old_slide_number) {
-        mslSlidesScroller.scroll(new_slide_number);
+      scope.changeSlide = function (old_slide_number, new_slide_number) {
+        scope.unlock_scroll = Date.now() + 1000;
+        var start = mslSlidesViewport.positionOf(old_slide_number);
+        var stop = mslSlidesViewport.positionOf(new_slide_number);
+        mslSlidesScroller.scroll(start, stop);
       };
 
       // Event handling
 
-      scope.$on('$locationChangeSuccess', function () {
-        var slide_number = mslSlidesLocation.getSlideNumber();
-        scope.$emit('msl_slides_proposed_slide_change', slide_number);
+      scope.$on('$locationChangeSuccess', function (event) {
+        var number = mslSlidesLocation.getSlideNumber();
+        if (scope.validSlideNumber(number)) scope.slide_number = number;
       });
 
-      scope.$on('msl_slides_proposed_slide_change', function (event, number) {
-        if (scope.validSlideNumber(number)) {
-          scope.slide_number = number;
-        }
+      scope.$on('msl_slides_scroll', function (event, direction, timestamp) {
+        if (timestamp > scope.unlock_scroll) {
+          var next_slide = {
+            up: scope.slide_number - 1,
+            down: scope.slide_number + 1
+          };
+          var number = next_slide[direction];
+          if (scope.validSlideNumber(number)) {
+            scope.$apply(function () {
+              scope.slide_number = number;
+            });
+          }
+        };
       });
 
       scope.$watch('slide_number', function (new_slide_number,
@@ -49,6 +63,10 @@ angular.module('msl.slides').directive('mslSlides', ['mslSlidesLocation',
           scope.changeSlide(old_slide_number, new_slide_number);
         }
       });
+
+      // Install delegate services
+
+      mslSlidesScrollDetector.install(scope);
     }
   };
 }]);
