@@ -29,8 +29,18 @@ angular.module('msl.slides').directive('mslSlides', ['mslSlidesLocation',
       scope.changeSlide = function (old_slide_number, new_slide_number) {
         var start = mslSlidesViewport.positionOf(old_slide_number);
         var stop = mslSlidesViewport.positionOf(new_slide_number);
+        scope.$emit(
+          'msl_slides_slide_change_start',
+          old_slide_number,
+          new_slide_number
+        );
         mslSlidesScroller.scroll(start, stop).then(function () {
           mslSlidesLocation.setSlideNumber(new_slide_number);
+          scope.$emit(
+            'msl_slides_slide_change_success',
+            old_slide_number,
+            new_slide_number
+          );
         });
       };
 
@@ -41,7 +51,6 @@ angular.module('msl.slides').directive('mslSlides', ['mslSlidesLocation',
       };
 
       scope.scrollLocked = function (timestamp) {
-        scope.unlock_scroll = scope.unlock_scroll || 0;
         return timestamp <= scope.unlock_scroll;
       };
 
