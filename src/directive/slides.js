@@ -37,12 +37,12 @@ angular.module('msl.slides').directive('mslSlides', ['mslSlidesLocation',
       // Scroll locking
 
       scope.lockScroll = function (timestamp) {
-        scope.unlock_scroll = timestamp + mslSlidesConfig.unlock_scroll;
+        scope.unlock_scroll = timestamp + mslSlidesConfig.duration;
       };
 
       scope.scrollLocked = function (timestamp) {
         scope.unlock_scroll = scope.unlock_scroll || 0;
-        return timestamp < scope.unlock_scroll;
+        return timestamp <= scope.unlock_scroll;
       };
 
       // Event handling
