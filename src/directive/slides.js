@@ -2,8 +2,8 @@
 
 angular.module('msl.slides').directive('mslSlides', ['mslSlidesLocation',
   'mslSlidesScroller', 'mslSlidesScrollDetector', 'mslSlidesViewport',
-  function (mslSlidesLocation, mslSlidesScroller, mslSlidesScrollDetector,
-  mslSlidesViewport) {
+  'mslSlidesConfig', function (mslSlidesLocation, mslSlidesScroller,
+  mslSlidesScrollDetector, mslSlidesViewport, mslSlidesConfig) {
   return {
     restrict: 'E',
     scope: {}, // isolated
@@ -27,10 +27,20 @@ angular.module('msl.slides').directive('mslSlides', ['mslSlidesLocation',
       // Slide change logic
 
       scope.changeSlide = function (old_slide_number, new_slide_number) {
-        scope.unlock_scroll = Date.now() + 1000;
         var start = mslSlidesViewport.positionOf(old_slide_number);
         var stop = mslSlidesViewport.positionOf(new_slide_number);
         mslSlidesScroller.scroll(start, stop);
+      };
+
+      // Scroll locking
+
+      scope.lockScroll = function (timestamp) {
+        scope.unlock_scroll = timestamp + mslSlidesConfig.unlock_scroll;
+      };
+
+      scope.scrollLocked = function (timestamp) {
+        scope.unlock_scroll = scope.unlock_scroll || 0;
+        return timestamp < scope.unlock_scroll;
       };
 
       // Event handling
@@ -41,7 +51,7 @@ angular.module('msl.slides').directive('mslSlides', ['mslSlidesLocation',
       });
 
       scope.$on('msl_slides_scroll', function (event, direction, timestamp) {
-        if (timestamp > scope.unlock_scroll) {
+        if (!scope.scrollLocked(timestamp)) {
           var next_slide = {
             up: scope.slide_number - 1,
             down: scope.slide_number + 1
@@ -49,6 +59,7 @@ angular.module('msl.slides').directive('mslSlides', ['mslSlidesLocation',
           var number = next_slide[direction];
           if (scope.validSlideNumber(number)) {
             scope.$apply(function () {
+              scope.lockScroll(timestamp);
               scope.slide_number = number;
             });
           }
@@ -66,7 +77,13 @@ angular.module('msl.slides').directive('mslSlides', ['mslSlidesLocation',
 
       // Install delegate services
 
+      mslSlidesScroller.install(mslSlidesConfig);
       mslSlidesScrollDetector.install(scope);
+
+      // Init
+
+      scope.slide_number = 0;
+      scope.lockScroll(0);
     }
   };
 }]);

@@ -2,9 +2,8 @@
 
 angular.module('msl.slides').factory('mslSlidesScroller', ['$q', function ($q) {
   return {
-    config: {
-      duration: 1000,
-      frames: 30
+    install: function (config) {
+      this.config = config;
     },
     scroll: function (start, stop) {
       var deferred = $q.defer();
