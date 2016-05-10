@@ -4,7 +4,7 @@ angular.module('msl.slides').factory('mslSlidesScrollDetector', function () {
   return {
     install: function (scope) {
       // Mouse & touchpad
-      window.onmousewheel = function (event) {
+      window.addEventListener('wheel', function (event) {
         event.preventDefault();
         var timestamp = event.timeStamp;
         if (event.deltaY > 0) {
@@ -12,7 +12,7 @@ angular.module('msl.slides').factory('mslSlidesScrollDetector', function () {
         } else if (event.deltaY < 0) {
           scope.$emit('msl_slides_scroll', 'up', timestamp);
         }
-      };
+      });
 
       // keyboard
       document.onkeydown = function (event) {
