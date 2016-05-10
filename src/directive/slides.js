@@ -29,7 +29,9 @@ angular.module('msl.slides').directive('mslSlides', ['mslSlidesLocation',
       scope.changeSlide = function (old_slide_number, new_slide_number) {
         var start = mslSlidesViewport.positionOf(old_slide_number);
         var stop = mslSlidesViewport.positionOf(new_slide_number);
-        mslSlidesScroller.scroll(start, stop);
+        mslSlidesScroller.scroll(start, stop).then(function () {
+          mslSlidesLocation.setSlideNumber(new_slide_number);
+        });
       };
 
       // Scroll locking
