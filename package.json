@@ -1,9 +1,12 @@
 {
   "name": "angular-slides",
   "version": "0.0.0",
-  "description": "",
-  "main": "module.js",
-  "author": "",
+  "description": "AngularJS directive for vertical, fullscreen, slide-based web pages.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/marcoliceti/angular-slides.git"
+  },
+  "author": "Marco Liceti",
   "license": "MIT",
   "devDependencies": {
     "angular-mocks": "^1.5.5",
