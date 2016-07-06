@@ -5,11 +5,15 @@ module.exports = function (config) {
     basePath: '',
     frameworks: ['jasmine'],
     files: [
+      'node_modules/jquery/dist/jquery.js',
       'bower_components/angular/angular.js',
       'node_modules/angular-mocks/angular-mocks.js',
       'src/module.js',
-      'src/service/location.js',
+      'src/service/viewport.js',
+      'src/service/scroll_detector.js',
+      'src/service/config.js',
       'src/service/scroller.js',
+      'src/service/location.js',
       'src/directive/slides.js',
       'test/directive/slides.js'
     ],
