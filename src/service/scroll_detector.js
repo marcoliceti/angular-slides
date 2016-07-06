@@ -14,14 +14,13 @@ angular.module('msl.slides').factory('mslSlidesScrollDetector', ['$window',
       };
     },
     start: function () {
-      this.keyboardHandler = this.keyboardHandlerFactory(this.scope);
       angular.element($window).on('keydown', this.keyboardHandler);
     },
     stop: function () {
       angular.element($window).off('keydown', this.keyboardHandler);
     },
     install: function (scope) {
-      this.scope = scope;
+      this.keyboardHandler = this.keyboardHandlerFactory(scope);
       angular.element($window).on('wheel', function (event) {
         event.preventDefault();
       });

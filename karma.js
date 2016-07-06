@@ -15,7 +15,8 @@ module.exports = function (config) {
       'src/service/scroller.js',
       'src/service/location.js',
       'src/directive/slides.js',
-      'test/directive/slides.js'
+      'test/directive/slides.js',
+      'test/service/scroll_detector.js'
     ],
     reporters: ['progress'],
     port: 9876,
