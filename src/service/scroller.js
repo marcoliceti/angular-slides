@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('msl.slides').factory('mslSlidesScroller', ['$q', '$interval',
-  function ($q, $interval) {
+  '$window', function ($q, $interval, $window) {
   return {
     install: function (config) {
       this.config = config;
@@ -16,10 +16,10 @@ angular.module('msl.slides').factory('mslSlidesScroller', ['$q', '$interval',
       var elapsed = step;
       var task = $interval(function () {
         if (elapsed < duration) {
-          window.scroll(0, start + (elapsed / duration) * delta);
+          $window.scroll(0, start + (elapsed / duration) * delta);
           elapsed += step;
         } else {
-          window.scroll(0, stop);
+          $window.scroll(0, stop);
           $interval.cancel(task);
           deferred.resolve();
         }
