@@ -2,18 +2,16 @@ body {
   margin: 0;
 }
 
-#slide1, #slide2, #slide3 {
+msl-slides > div {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-#slide1, #slide3 {
-  background: rgb(255, 127, 127);
-  color: rgb(127, 0, 127);
-}
-
-#slide2 {
-  background: rgb(127, 0, 127);
-  color: rgb(255, 127, 127);
+msl-slides > div > p {
+  background: rgba(0, 0, 0, 0.125);
+  color: rgba(0, 0, 0, 0.75);
+  font-size: 30px;
+  padding: 30px;
+  border-radius: 15px;
 }
