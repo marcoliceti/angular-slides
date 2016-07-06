@@ -16,5 +16,8 @@
     "karma": "^0.13.22",
     "karma-chrome-launcher": "^0.2.3",
     "karma-jasmine": "^0.3.8"
+  },
+  "dependencies": {
+    "angular": "^1.5.7"
   }
 }
