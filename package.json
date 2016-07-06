@@ -8,6 +8,8 @@
   "devDependencies": {
     "angular-mocks": "^1.5.5",
     "grunt": "^1.0.1",
+    "grunt-contrib-concat": "^1.0.1",
+    "grunt-contrib-uglify": "^1.0.1",
     "grunt-karma": "^0.12.2",
     "jasmine-core": "^2.4.1",
     "jquery": "^3.0.0",
