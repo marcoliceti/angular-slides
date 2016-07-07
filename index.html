@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+  <head>
+    <meta charset="utf-8">
+    <title>angular-slides</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
+    <link
+      rel="stylesheet"
+      href="style.css">
+  </head>
+  <body ng-controller="MyCtrl" ng-cloak>
+    <msl-slides>
+      <div>
+        <div>
+          <div>This is just the first of many slides...</div>
+          <div>Press <img class="key" src="img/down.svg"></div>
+        </div>
+      </div>
+      <div>
+        <div>
+          <div>Woooooo!</div>
+          <div>Try again!</div>
+        </div>
+      </div>
+      <div>
+        <div>
+          <div>What about <a href="#?slide_number=3">links</a>?</div>
+          <div
+            ng-if="comes.from_3">
+            (Or maybe now you want to know
+            <a href="#?slide_number=4">how this works</a>)
+          </div>
+        </div>
+      </div>
+      <div>
+        <div>
+          (Of course you can go back with <img class="key" src="img/up.svg">)
+        </div>
+      </div>
+      <div>
+        <div>
+          <div>How this works?</div>
+          <div>Well, it's (almost) as simples as:</div>
+          <pre>
+            <code>
+&lt;msl-slides&gt;
+  &lt;div>Slide 1&lt;/div&gt;
+  &lt;div&gt;Slide 2&lt;/div&gt;
+  &lt;div&gt;Slide 3&lt;/div&gt;
+&lt;/msl-slides&gt;
+            </code>
+          </pre>
+          <div>
+            <a href="https://github.com/marcoliceti/angular-slides">
+              Learn more
+            </a>
+          </div>
+        </div>
+      </div>
+    </msl-slides>
+    <script src="bower_components/angular/angular.min.js"></script>
+    <script src="bower_components/msl-slides/dist/msl_slides.min.js">
+    </script>
+    <script src="script.js"></script>
+  </body>
+</html>

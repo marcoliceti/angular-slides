@@ -1,0 +1,20 @@
+{
+  "name": "msl-slides",
+  "description": "AngularJS directive for vertical, fullscreen, slide-based web pages.",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test"
+  ],
+  "keywords": [ "angular", "slides", "scroll", "fullscreen" ],
+  "authors": [ "Marco Liceti" ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/marcoliceti/angular-slides.git"
+  },
+  "dependencies": {
+    "angular": "^1.5.5"
+  }
+}

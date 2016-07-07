@@ -1,0 +1,26 @@
+{
+  "name": "angular-slides",
+  "version": "1.0.1",
+  "description": "AngularJS directive for vertical, fullscreen, slide-based web pages.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/marcoliceti/angular-slides.git"
+  },
+  "author": "Marco Liceti",
+  "license": "MIT",
+  "devDependencies": {
+    "angular-mocks": "^1.5.5",
+    "grunt": "^1.0.1",
+    "grunt-contrib-concat": "^1.0.1",
+    "grunt-contrib-uglify": "^1.0.1",
+    "grunt-karma": "^0.12.2",
+    "jasmine-core": "^2.4.1",
+    "jquery": "^3.0.0",
+    "karma": "^0.13.22",
+    "karma-chrome-launcher": "^0.2.3",
+    "karma-jasmine": "^0.3.8"
+  },
+  "dependencies": {
+    "angular": "^1.5.7"
+  }
+}

@@ -1,0 +1,17 @@
+body {
+  margin: 0;
+}
+
+msl-slides > div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+msl-slides > div > p {
+  background: rgba(0, 0, 0, 0.125);
+  color: rgba(0, 0, 0, 0.75);
+  font-size: 30px;
+  padding: 30px;
+  border-radius: 15px;
+}
