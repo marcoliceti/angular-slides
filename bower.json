@@ -1,5 +1,5 @@
 {
-  "name": "angular-slides",
+  "name": "msl-slides",
   "description": "AngularJS directive for vertical, fullscreen, slide-based web pages.",
   "license": "MIT",
   "ignore": [
