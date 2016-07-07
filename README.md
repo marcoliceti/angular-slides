@@ -6,30 +6,29 @@ AngularJS directive for vertical, fullscreen, slide-based web pages.
 
 ### Adding angular-slides to your project
 
-_Currently, you have to clone this repository (`bower` and `npm` packages will
-be available soon)._
-
-From the root of this repo:
+Use [npm](https://nodejs.org/en/):
 
 ```
-$ npm install
-$ grunt build
+$ npm install angular-slides
 ```
 
-**Note:** You'll need [Node.js and npm](https://nodejs.org/en/) and
-[Grunt](http://gruntjs.com/).
+or [Bower](https://bower.io/):
 
-This will create a `dist` directory with both a minified (`msl_slides.min.js`)
-and non-minified (`msl_slides.js`) version of this library.
+```
+$ bower install msl-slides
+```
 
-Finally, load it inside your page, e.g.:
+Then, inside your HTML page:
 
 ```html
-<!-- Angular is the only required dependency -->
-<script src="angular.js"></script>
-<script src="msl_slides.js"></script>
+<!-- AngularJS is the only required dependency -->
+<script src="node_modules/angular/angular.js"></script>
+<script src="node_modules/angular-slides/dist/msl_slides.js"></script>
 <script src="your_code.js"></script>
 ```
+
+**Note:** If you're using Bower, just replace `node_modules` with
+`bower_components`.
 
 **Note:** The `demo` folder of this repository contains a working example.
 
