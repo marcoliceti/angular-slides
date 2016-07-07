@@ -2,6 +2,21 @@
 
 AngularJS directive for vertical, fullscreen, slide-based web pages.
 
+## Overview
+
+The goal of this project is to easily allow layouts with the following features:
+
+* the page is divided into a sequence of vertically-aligned _slides_
+* each slide is fullscreen, i.e. it spans the whole viewport
+* users can't (directly) scroll: up and down arrow key are used to change slide
+(with scrolling performed programmatically in JavaScript)
+* indvidual slides can be linked
+
+Also, events are fired to signal slide changes, which is useful to hide, reveal
+and animate stuff.
+
+[See it in action!](https://marcoliceti.github.io/angular-slides)
+
 ## Getting started
 
 ### Adding angular-slides to your project
@@ -28,9 +43,11 @@ Then, inside your HTML page:
 ```
 
 **Note:** If you're using Bower, just replace `node_modules` with
-`bower_components`.
+`bower_components` and `angular-slides` with `msl-slides`.
 
 **Note:** The `demo` folder of this repository contains a working example.
+Another useful example is
+[this project's website](https://marcoliceti.github.io/angular-slides).
 
 ### Using the mslSlides directive
 
@@ -46,6 +63,13 @@ Then, inside your HTML page:
 
 **Note:** CSS styling is up to you. The only style added by the `mslSlides`
 directive is `100vw` width and `100vh` height to each slide.
+
+**Note:** Remember to load the `msl.slides` module into your AngularJS app,
+e.g.:
+
+```javascript
+var myApp = angular.module('myApp', ['msl.slides']);
+```
 
 #### Links
 
@@ -88,7 +112,8 @@ directive is `100vw` width and `100vh` height to each slide.
 
 ```javascript
 angular.module('myApp').controller('MyCtrl', function ($scope) {
-  $scope.$on('msl_slides_slide_change_start',
+  $scope.$on(
+    'msl_slides_slide_change_start',
     function (event, old_slide_number, new_slide_number) {
       console.log(
         'Changing from ' + old_slide_number + ' to ' + new_slide_number
@@ -110,7 +135,7 @@ angular.module('myApp').controller('MyCtrl', function ($scope) {
 
 If you're not happy with the previous examples, here is a bunch of detailed
 informations that will hold true (until
-[API breaking changes](http://semver.org/)):
+[breaking changes](http://semver.org/)):
 
 * the `mslSlides` directive is hosted inside an AngularJS module called
 `msl.slides`
@@ -119,6 +144,7 @@ informations that will hold true (until
 * slides are numbered starting from `0`
 * the `mslSlides` directive applies `100vw` width and `100vh` height to each
 slide
+* slide change is performed with up and down arrow keys
 * a `msl_slides_slide_change_start` AngularJS event is emitted when a slide
 change starts
 * a `msl_slides_slide_change_success` AngularJS event is emitted when a slide
@@ -129,6 +155,9 @@ slide change) as **second** and **third** argument, e.g.
 `function myHandler(event, old_slide, new_slide) { ... }`
 * the `slide_number` query parameter in the address bar is kept in sync with
 the current slide number (synchronization happens when the animation completes)
+
+All other behaviors are to be intended as implementation-specific and should not
+be depended on.
 
 ## For contributors
 
@@ -150,3 +179,5 @@ Development tasks are handled with [Grunt](http://gruntjs.com/):
 
 * `grunt test`: run tests
 * `grunt build`: concat + minify (output inside the `dist` folder)
+
+Development dependencies are handled with `npm`.

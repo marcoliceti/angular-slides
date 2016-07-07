@@ -8,6 +8,8 @@
   },
   "author": "Marco Liceti",
   "license": "MIT",
+  "keywords": [ "angular", "slides", "scroll", "fullscreen" ],
+  "homepage": "https://marcoliceti.github.io/angular-slides",
   "devDependencies": {
     "angular-mocks": "^1.5.5",
     "grunt": "^1.0.1",

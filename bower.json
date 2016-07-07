@@ -9,6 +9,7 @@
     "test"
   ],
   "keywords": [ "angular", "slides", "scroll", "fullscreen" ],
+  "homepage": "https://marcoliceti.github.io/angular-slides",
   "authors": [ "Marco Liceti" ],
   "repository": {
     "type": "git",
