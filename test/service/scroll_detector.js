@@ -13,18 +13,23 @@ describe('Service mslSlidesScrollDetector', function () {
 
   it('defines a keyboard handler for slide changes', function () {
     var fake_scope = { $emit: jasmine.createSpy() };
-    var fake_event = { keyCode: 40 };
+    var fake_event = { keyCode: 40, preventDefault: jasmine.createSpy() };
     var handler = mslSlidesScrollDetector.keyboardHandlerFactory(fake_scope);
     handler(fake_event);
     expect(fake_scope.$emit).toHaveBeenCalledWith('msl_slides_scroll', 'down');
+    expect(fake_event.preventDefault).toHaveBeenCalled();
     fake_scope.$emit.calls.reset();
+    fake_event.preventDefault.calls.reset();
     fake_event.keyCode = 38;
     handler(fake_event);
     expect(fake_scope.$emit).toHaveBeenCalledWith('msl_slides_scroll', 'up');
+    expect(fake_event.preventDefault).toHaveBeenCalled();
     fake_scope.$emit.calls.reset();
+    fake_event.preventDefault.calls.reset();
     fake_event.keyCode = 666;
     handler(fake_event);
     expect(fake_scope.$emit).not.toHaveBeenCalled();
+    expect(fake_event.preventDefault).not.toHaveBeenCalled();
   });
 
   it('should be explicitly started', function () {
@@ -68,7 +73,6 @@ describe('Service mslSlidesScrollDetector', function () {
       toHaveBeenCalledWith(fake_scope);
     expect(mslSlidesScrollDetector.keyboardHandler).toBe(fake_handler);
     expect(on_spy).toHaveBeenCalledWith('wheel', jasmine.any(Function));
-    expect(on_spy).toHaveBeenCalledWith('keydown', jasmine.any(Function));
     expect(mslSlidesScrollDetector.keyboardHandlerFactory).toHaveBeenCalled();
     /*
      * angular.element spies should be cleared
