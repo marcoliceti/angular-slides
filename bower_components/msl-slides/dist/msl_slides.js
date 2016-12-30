@@ -60,6 +60,7 @@ angular.module('msl.slides').factory('mslSlidesScrollDetector', ['$window',
         var direction = directions[key];
         if (direction) {
           scope.$emit('msl_slides_scroll', direction);
+          event.preventDefault();
         }
       };
     },
@@ -72,9 +73,6 @@ angular.module('msl.slides').factory('mslSlidesScrollDetector', ['$window',
     install: function (scope) {
       this.keyboardHandler = this.keyboardHandlerFactory(scope);
       angular.element($window).on('wheel', function (event) {
-        event.preventDefault();
-      });
-      angular.element($window).on('keydown', function (event) {
         event.preventDefault();
       });
       this.start();

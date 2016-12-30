@@ -14,6 +14,7 @@
     "scroll",
     "fullscreen"
   ],
+  "homepage": "https://marcoliceti.github.io/angular-slides",
   "authors": [
     "Marco Liceti"
   ],
@@ -24,16 +25,14 @@
   "dependencies": {
     "angular": "^1.5.5"
   },
-  "homepage": "https://github.com/marcoliceti/angular-slides",
-  "version": "1.0.1",
-  "_release": "1.0.1",
+  "version": "1.1.0",
+  "_release": "1.1.0",
   "_resolution": {
     "type": "version",
-    "tag": "v1.0.1",
-    "commit": "34c1c094598e6082b7ac6ea724105d8117cb0b4a"
+    "tag": "v1.1.0",
+    "commit": "916443faffb346dfe64374e3052d5b42b9c43c9d"
   },
   "_source": "https://github.com/marcoliceti/angular-slides.git",
   "_target": "^1.0.1",
-  "_originalSource": "msl-slides",
-  "_direct": true
+  "_originalSource": "msl-slides"
 }
