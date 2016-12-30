@@ -6,7 +6,7 @@ AngularJS directive for vertical, fullscreen, slide-based web pages.
 
 The goal of this project is to easily allow layouts with the following features:
 
-* the page is divided into a sequence of vertically-aligned _slides_
+* the page is divided into a vertical sequence of _slides_
 * each slide is fullscreen, i.e. it spans the whole viewport
 * users can't (directly) scroll: up and down arrow key are used to change slide
 (with scrolling performed programmatically in JavaScript)
@@ -134,8 +134,7 @@ angular.module('myApp').controller('MyCtrl', function ($scope) {
 ## API
 
 If you're not happy with the previous examples, here is a bunch of detailed
-informations that will hold true (until
-[breaking changes](http://semver.org/)):
+informations that will hold true (until [breaking changes](http://semver.org/)):
 
 * the `mslSlides` directive is hosted inside an AngularJS module called
 `msl.slides`
@@ -150,11 +149,12 @@ change starts
 * a `msl_slides_slide_change_success` AngularJS event is emitted when a slide
 change is successfully completed
 * `msl_slides_slide_change_start` and `msl_slides_slide_change_success` handlers
-receive the "original" and the "final" slide numbers (i.e. before and after the
+receive the "previous" and the "next" slide numbers (i.e. before and after the
 slide change) as **second** and **third** argument, e.g.
 `function myHandler(event, old_slide, new_slide) { ... }`
 * the `slide_number` query parameter in the address bar is kept in sync with
 the current slide number (synchronization happens when the animation completes)
+* thus, slide changes can be driven by links too
 
 All other behaviors are to be intended as implementation-specific and should not
 be depended on.
